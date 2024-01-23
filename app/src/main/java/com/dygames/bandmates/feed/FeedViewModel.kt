@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dygames.bandmates.feed.data.FeedRepository
 import com.dygames.bandmates.feed.model.FeedModel
-import com.dygames.bandmates.feed.model.ProjectModel
+import com.dygames.bandmates.feed.model.FeedUIState
 
 class FeedViewModel(
     private val feedRepository: FeedRepository
@@ -17,9 +17,15 @@ class FeedViewModel(
 
     fun findFeed() {
         _feedLiveData.value  = FeedModel(
-            (0..10).map {
-                ProjectModel(it.toString())
-            }
+            listOf(
+                FeedUIState.Category("Cat 1"),
+                FeedUIState.Project("Project 1"),
+                FeedUIState.Project("Project 2"),
+                FeedUIState.Category("Cat 2"),
+                FeedUIState.Project("Project 1"),
+                FeedUIState.Project("Project 2"),
+                FeedUIState.Project("Project 3"),
+            )
         )
     }
 }

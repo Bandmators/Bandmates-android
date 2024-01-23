@@ -7,15 +7,16 @@
 
         <variable
             name="project"
-            type="com.dygames.bandmates.feed.model.ProjectModel" />
+            type="com.dygames.bandmates.feed.model.FeedUIState.Project" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/project_preview_name"
+            android:id="@+id/feed_project_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{project.name}"
