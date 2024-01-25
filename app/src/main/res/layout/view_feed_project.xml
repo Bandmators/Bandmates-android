@@ -13,15 +13,54 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/feed_author_pfp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toStartOf="@id/feed_project_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/feed_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:text="@{project.author}"
+            app:layout_constraintBottom_toTopOf="@id/feed_project_name"
+            app:layout_constraintStart_toEndOf="@id/feed_author_pfp"
+            app:layout_constraintTop_toTopOf="@id/feed_author_pfp"
+            tools:text="Author Name" />
 
         <TextView
             android:id="@+id/feed_project_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{project.name}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/feed_author_pfp"
+            app:layout_constraintStart_toEndOf="@id/feed_author_pfp"
+            app:layout_constraintTop_toBottomOf="@id/feed_author_name"
             tools:text="Project Title" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feed_author_pfp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,13 +6,13 @@ import androidx.databinding.DataBindingUtil
 import com.dygames.bandmates.R
 import com.dygames.bandmates.databinding.ActivityFeedBinding
 import com.dygames.bandmates.feed.FeedViewModel
-import com.dygames.bandmates.feed.data.FeedRepository
+import com.dygames.bandmates.feed.data.DefaultFeedRepository
 import com.dygames.bandmates.feed.view.recycler.FeedAdapter
 
 class FeedActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFeedBinding
-    private val feedViewModel: FeedViewModel = FeedViewModel(FeedRepository())
+    private val feedViewModel: FeedViewModel = FeedViewModel(DefaultFeedRepository())
     private val feedAdapter: FeedAdapter = initAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {

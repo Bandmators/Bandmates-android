@@ -3,10 +3,11 @@ package com.dygames.bandmates.feed.model
 sealed class FeedUIState {
 
     class Category(
-        val header: String
+        val name: String
     ) : FeedUIState()
 
     class Project(
-        val name: String
+        val name: String,
+        val author: String
     ) : FeedUIState()
 }

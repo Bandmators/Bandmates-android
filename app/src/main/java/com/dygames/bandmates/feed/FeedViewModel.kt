@@ -3,12 +3,14 @@ package com.dygames.bandmates.feed
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dygames.bandmates.feed.data.FeedRepository
+import androidx.lifecycle.viewModelScope
+import com.dygames.bandmates.feed.data.DefaultFeedRepository
 import com.dygames.bandmates.feed.model.FeedModel
-import com.dygames.bandmates.feed.model.FeedUIState
+import com.dygames.bandmates.feed.model.toModel
+import kotlinx.coroutines.launch
 
 class FeedViewModel(
-    private val feedRepository: FeedRepository
+    private val defaultFeedRepository: DefaultFeedRepository
 ) : ViewModel() {
 
     private val _feedLiveData: MutableLiveData<FeedModel> = MutableLiveData()
@@ -16,16 +18,12 @@ class FeedViewModel(
         get() = _feedLiveData
 
     fun findFeed() {
-        _feedLiveData.value  = FeedModel(
-            listOf(
-                FeedUIState.Category("Cat 1"),
-                FeedUIState.Project("Project 1"),
-                FeedUIState.Project("Project 2"),
-                FeedUIState.Category("Cat 2"),
-                FeedUIState.Project("Project 1"),
-                FeedUIState.Project("Project 2"),
-                FeedUIState.Project("Project 3"),
-            )
-        )
+        viewModelScope.launch {
+            defaultFeedRepository.requestFeed().onSuccess {
+                _feedLiveData.value = it.toModel()
+            }.onFailure {
+
+            }
+        }
     }
 }
