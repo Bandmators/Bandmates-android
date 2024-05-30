@@ -9,17 +9,19 @@ extern "C"
 JNIEXPORT jintArray
 JNICALL
 Java_com_dygames_bandmates_feed_view_FeedActivity_getAudioPCM(JNIEnv *env, jobject thiz,
-                                                              jstring path) {
-    const char *audio_path = env->GetStringUTFChars(path, 0);
-
+                                                              jbyteArray audio_data) {
     AudioProcessor *audioProcessor = new AudioProcessor();
+    jboolean isCopy = false;
+    jbyte *audio_data_byte_pointer = env->GetByteArrayElements(audio_data, &isCopy);
+    size_t audio_size = env->GetArrayLength(audio_data);
 
-    syslog(0, "%s", audio_path);
-    vector <int16_t> audioPCM = audioProcessor->getAudioPCM(audio_path);
+    vector<int16_t> audioPCM = audioProcessor->getAudioPCM(
+            reinterpret_cast<char *>(audio_data_byte_pointer), audio_size);
+
+    syslog(0, "Audio PCM Size : %d", audioPCM.size());
     jintArray result = env->NewIntArray(audioPCM.size());
     size_t audioPCMSize = audioPCM.size();
     if (result == nullptr) return result;
-
 
     jint *jIntArray = new jint[audioPCMSize];
     for (size_t i = 0; i < audioPCMSize; ++i) {
@@ -27,7 +29,6 @@ Java_com_dygames_bandmates_feed_view_FeedActivity_getAudioPCM(JNIEnv *env, jobje
     }
     env->SetIntArrayRegion(result, 0, audioPCM.size(), jIntArray);
     delete[] jIntArray;
-    env->ReleaseStringUTFChars(path, audio_path);
     return result;
 }
 }
